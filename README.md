@@ -1,101 +1,65 @@
-![Homepage demo banner](https://media.roboflow.com/inference-demo/rf-homepage-demo-banner.png?updatedAt=1680886879894)
+# Real-Time-Object-Detection-With-OpenCV
 
-  <div align="center">
-      <a href="https://youtube.com/roboflow">
-          <img
-            src="https://media.roboflow.com/notebooks/template/icons/purple/youtube.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672949634652"
-            width="3%"
-          />
-      </a>
-      <img src="https://github.com/SkalskiP/SkalskiP/blob/master/icons/transparent.png" width="3%"/>
-      <a href="https://roboflow.com">
-          <img
-            src="https://media.roboflow.com/notebooks/template/icons/purple/roboflow-app.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672949746649"
-            width="3%"
-          />
-      </a>
-      <img src="https://github.com/SkalskiP/SkalskiP/blob/master/icons/transparent.png" width="3%"/>
-      <a href="https://www.linkedin.com/company/roboflow-ai/">
-          <img
-            src="https://media.roboflow.com/notebooks/template/icons/purple/linkedin.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672949633691"
-            width="3%"
-          />
-      </a>
-      <img src="https://github.com/SkalskiP/SkalskiP/blob/master/icons/transparent.png" width="3%"/>
-      <a href="https://docs.roboflow.com">
-          <img
-            src="https://media.roboflow.com/notebooks/template/icons/purple/knowledge.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672949634511"
-            width="3%"
-          />
-      </a>
-      <img src="https://github.com/SkalskiP/SkalskiP/blob/master/icons/transparent.png" width="3%"/>
-      <a href="https://disuss.roboflow.com">
-          <img
-            src="https://media.roboflow.com/notebooks/template/icons/purple/forum.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672949633584"
-            width="3%"
-          />
-      <img src="https://github.com/SkalskiP/SkalskiP/blob/master/icons/transparent.png" width="3%"/>
-      <a href="https://blog.roboflow.com">
-          <img
-            src="https://media.roboflow.com/notebooks/template/icons/purple/blog.png?ik-sdk-version=javascript-1.4.3&updatedAt=1672949633605"
-            width="3%"
-          />
-      </a>
-      </a>
-  </div>
+### Introduction
 
-# Roboflow Homepage Demo
+This project aims to do real-time object detection through a laptop camera or webcam using OpenCV and MobileNetSSD. The idea is to loop over each frame of the video stream, detect objects like person, chair, dog, etc. and bound each detection in a box.
+Here, we will go through the steps required for setting up the project and some explanation about the code.
 
-This repository contains the code used to power the inference widget on the [Roboflow](https://roboflow.com) homepage, with some changes to make it more generic.
+**Hi!**
 
-The web page in this repository supports running a model hosted on Roboflow by:
+![alt text](https://github.com/Surya-Murali/Real-Time-Object-Detection-With-OpenCV/blob/master/real_time_output_gif/real_time_output.gif)
 
-1. Using your webcam to run inference.
-2. Selecting from a predefined image to run inference.
-3. Uploading an image to run inference.
+### How to run this code?
 
-## Project Screenshot
+**Step 1:** Create a directory in your local machine and cd into it
 
-![Roboflow Homepage Demo screenshot showing inference on an image of a baseball scene](screenshot.png)
+```
+mkdir ~/Desktop/opencv_project
+cd ~/Desktop/opencv_project
+```
 
-## Use This Project
+**Step 2:** Clone the repository and cd into the folder:
 
-This repository is a template, which means you can directly copy this code into your own repository from GitHub.
+```
+git clone https://github.com/Surya-Murali/Real-Time-Object-Detection-With-OpenCV.git
+cd Real-Time-Object-Detection-With-OpenCV
+```
+**Step 3:** Install all the necessary libraries. I used MacOS for this project. These are some of the libraries I had to install:
 
-Click "Use this template" on GitHub to create a copy of this repository with which you can experiment.
+```
+brew install opencv
+pip install opencv-python
+pip install opencv-contrib-python
+pip install opencv-python-headless
+pip install opencv-contrib-python-headless
+pip install matplotlib
+pip install imutils
+```
 
-You can also test a live [Repl.it of this project](https://repl.it/@roboflow/roboflow-homepage-demo) and fork the Repl.it to your own account to build on top of it.
+Make sure to download and install opencv and and opencv-contrib releases for OpenCV 3.3. This ensures that the deep neural network (dnn) module is installed. You must have OpenCV 3.3 (or newer) to run this code.
 
-## Getting Started
+**Step 4:** Make sure you have your video devices connected (e.g. Webcam, FaceTime HD Camera, etc.). You can list them by typing this in your terminal
 
-Once you clone this repository into your own environment, you'll need to add your Roboflow API key to the `script.js` file. Search for the term "API_KEY" and replace the empty string with your API key. For steps on how to find your API key, see the [Roboflow documentation](https://docs.roboflow.com/inference/web-browser).
+```
+system_profiler SPCameraDataType
+system_profiler SPCameraDataType | grep "^    [^ ]" | sed "s/    //" | sed "s/://"
+```
 
-By default, this project runs a model called `microsoft-coco` that was trained using the Microsoft COCO dateset. You can change the model that is used by changing the `model_name` variable in the `script.js` file and the `version` version number variable.
+**Step 5:** To start your video stream and real-time object detection, run the following command:
 
-To find your model name and version number, go to the Deploy tab associated with your model in Roboflow. The model name is the string that appears under the "Training Results" section of the application. The version number is the number that appears next to the string.
+```
+python real_time_object_detection.py --prototxt MobileNetSSD_deploy.prototxt.txt --model MobileNetSSD_deploy.caffemodel
+```
 
-![Model Name and Version Number](model-name-version.png)
+**Step 6:** If you need any help regarding the arguments you pass, try:
 
-### Deploy to GitHub Pages
+```
+python real_time_object_detection.py --help
+```
 
-You can deploy this project to GitHub pages to host your project online.
+### References and Useful Links
 
-To do so:
-
-1. Click "Use this template" and follow the instructions to create a copy of this repository in your own GitHub account.
-2. Go to the Settings tab of your repository.
-3. Click "Pages" in the sidebar.
-4. Select "main" as the branch from which to deploy.
-5. Click "Save".
-
-Your project will now be hosted at `https://<your-github-username>.github.io/<your-repository-name>/index.html`.
-
-## Technology Stack
-
-- JavaScript
-- [roboflow.js](https://docs.roboflow.com/inference/web-browser)
-
-## Contributing
-
-Do you have an idea on how we can improve this project? Feel free to file an Issue so we can discuss your ideas. If you 
-have identified a bug, please file an issue. PRs that solve any bugs you encounter are greatly appreciated!
+* https://github.com/chuanqi305/MobileNet-SSD
+* https://github.com/opencv/opencv
+* https://www.pyimagesearch.com/2017/11/06/deep-learning-opencvs-blobfromimage-works/
+* https://github.com/jrosebr1/imutils
