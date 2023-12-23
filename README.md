@@ -20,7 +20,7 @@ The script utilizes OpenCV, a powerful computer vision library, and MobileNet SS
 1. **Clone the repository and navigate to the project folder:**
 
     ```bash
-    git clone https://github.com/your-username/Real-Time-Object-Detection-With-OpenCV.git
+    git clone https://github.com/harshitdhamecha/objectdetection.git
     cd Real-Time-Object-Detection-With-OpenCV
     ```
 
